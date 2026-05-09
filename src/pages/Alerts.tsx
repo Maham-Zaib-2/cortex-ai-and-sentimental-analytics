@@ -1,13 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ChartCard } from "@/components/cortex/ChartCard";
-import { useState } from "react";
 import { Bell, AlertTriangle, CheckCircle2, MessageSquare, TrendingDown } from "lucide-react";
 import { toast } from "sonner";
-
-export const Route = createFileRoute("/_authenticated/alerts")({
-  head: () => ({ meta: [{ title: "Real-Time Alerts — CorteX" }] }),
-  component: Page,
-});
 
 const initial = [
   { id:1, type:"Sentiment", title:"Negative spike on live chat", desc:"+38% negative messages in last hour from EU region.", time:"2 min ago", sev:"high", Icon: MessageSquare },
@@ -24,7 +18,8 @@ const sevStyle: Record<string,string> = {
   info: "bg-primary/15 text-primary",
 };
 
-function Page() {
+export default function Alerts() {
+  useEffect(() => { document.title = "Real-Time Alerts — CorteX"; }, []);
   const [alerts, setAlerts] = useState(initial);
   const [filter, setFilter] = useState<"all"|"high"|"med"|"low">("all");
   const visible = alerts.filter(a => filter === "all" || a.sev === filter);

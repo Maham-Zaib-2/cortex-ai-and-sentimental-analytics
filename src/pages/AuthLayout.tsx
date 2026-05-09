@@ -1,18 +1,14 @@
-import { createFileRoute, Outlet, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { auth } from "@/lib/auth";
 import { AppSidebar } from "@/components/cortex/AppSidebar";
 import { TopNavbar } from "@/components/cortex/TopNavbar";
 
-export const Route = createFileRoute("/_authenticated")({
-  component: AuthLayout,
-});
-
-function AuthLayout() {
+export default function AuthLayout() {
   const navigate = useNavigate();
   const [ready, setReady] = useState(false);
   useEffect(() => {
-    if (!auth.isAuthed()) navigate({ to: "/login" });
+    if (!auth.isAuthed()) navigate("/login");
     else setReady(true);
   }, [navigate]);
   if (!ready) return null;

@@ -1,14 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ChartCard, ChartTooltip } from "@/components/cortex/ChartCard";
 import { KpiCard } from "@/components/cortex/KpiCard";
 import { TrendingDown, Users, AlertTriangle, Target } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
 import { toast } from "sonner";
-
-export const Route = createFileRoute("/_authenticated/churn")({
-  head: () => ({ meta: [{ title: "Churn Risk — CorteX" }] }),
-  component: Page,
-});
 
 const churnTrend = Array.from({length: 12}).map((_,i)=>({
   m: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][i],
@@ -28,7 +23,8 @@ const customers = [
   { name: "Vertex Inc.", score: 58, tier: "Mid-Market", reason: "Sentiment trending down" },
 ];
 
-function Page() {
+export default function Churn() {
+  useEffect(() => { document.title = "Churn Risk — CorteX"; }, []);
   return (
     <div className="space-y-6 max-w-[1400px] mx-auto">
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">

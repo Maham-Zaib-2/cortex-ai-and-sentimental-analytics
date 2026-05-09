@@ -1,4 +1,4 @@
-import { useRouterState } from "@tanstack/react-router";
+import { useLocation } from "react-router-dom";
 import { Bell, Search } from "lucide-react";
 import { auth } from "@/lib/auth";
 
@@ -12,7 +12,7 @@ const titles: Record<string,string> = {
 };
 
 export function TopNavbar() {
-  const path = useRouterState({ select: r => r.location.pathname });
+  const path = useLocation().pathname;
   const title = titles[path] ?? "CorteX";
   const session = auth.get();
   return (

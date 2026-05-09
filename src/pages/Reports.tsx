@@ -1,13 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ChartCard, ChartTooltip } from "@/components/cortex/ChartCard";
 import { Download, FileText, Calendar, Filter } from "lucide-react";
 import { ComposedChart, Bar, Line, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import { toast } from "sonner";
-
-export const Route = createFileRoute("/_authenticated/reports")({
-  head: () => ({ meta: [{ title: "Reports — CorteX" }] }),
-  component: Page,
-});
 
 const data = Array.from({length: 8}).map((_,i)=>({
   w: `W${i+1}`,
@@ -22,7 +17,8 @@ const reports = [
   { name:"Q1 Executive Summary", date:"Apr 5, 2026", type:"Executive", size:"3.1MB" },
 ];
 
-function Page() {
+export default function Reports() {
+  useEffect(() => { document.title = "Reports — CorteX"; }, []);
   return (
     <div className="space-y-6 max-w-[1400px] mx-auto">
       <div className="flex flex-wrap items-center gap-3">

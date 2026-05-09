@@ -1,13 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ChartCard } from "@/components/cortex/ChartCard";
-import { useState } from "react";
 import { auth } from "@/lib/auth";
 import { toast } from "sonner";
-
-export const Route = createFileRoute("/_authenticated/settings")({
-  head: () => ({ meta: [{ title: "Settings — CorteX" }] }),
-  component: Page,
-});
 
 function Toggle({ on, set, label, hint }:{on:boolean; set:(b:boolean)=>void; label:string; hint:string}) {
   return (
@@ -20,7 +14,17 @@ function Toggle({ on, set, label, hint }:{on:boolean; set:(b:boolean)=>void; lab
   );
 }
 
-function Page() {
+function Field({ label, value }:{ label:string; value:string }) {
+  return (
+    <div>
+      <label className="text-xs font-semibold text-foreground/70">{label}</label>
+      <input defaultValue={value} className="mt-1.5 w-full h-10 px-3 rounded-lg bg-[#F5F5FF] border border-transparent focus:border-primary focus:bg-white outline-none text-sm transition"/>
+    </div>
+  );
+}
+
+export default function Settings() {
+  useEffect(() => { document.title = "Settings — CorteX"; }, []);
   const session = auth.get();
   const [emailA, setEmailA] = useState(true);
   const [pushA, setPushA] = useState(true);
@@ -74,15 +78,6 @@ function Page() {
           ))}
         </div>
       </ChartCard>
-    </div>
-  );
-}
-
-function Field({ label, value }:{ label:string; value:string }) {
-  return (
-    <div>
-      <label className="text-xs font-semibold text-foreground/70">{label}</label>
-      <input defaultValue={value} className="mt-1.5 w-full h-10 px-3 rounded-lg bg-[#F5F5FF] border border-transparent focus:border-primary focus:bg-white outline-none text-sm transition"/>
     </div>
   );
 }

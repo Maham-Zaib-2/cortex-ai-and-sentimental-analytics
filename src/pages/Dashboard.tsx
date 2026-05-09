@@ -1,14 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { KpiCard } from "@/components/cortex/KpiCard";
 import { ChartCard, ChartTooltip } from "@/components/cortex/ChartCard";
 import { MessageSquare, Smile, Frown, AlertTriangle, Download } from "lucide-react";
 import { AreaChart, Area, BarChart, Bar, ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, Legend } from "recharts";
 import { toast } from "sonner";
-
-export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "Dashboard — CorteX" }] }),
-  component: Dashboard,
-});
 
 const trendData = [
   { d: "Mon", positive: 240, negative: 40 },
@@ -32,7 +27,8 @@ const sentimentSplit = [
   { name: "Negative", value: 15, color: "#E8907A" },
 ];
 
-function Dashboard() {
+export default function Dashboard() {
+  useEffect(() => { document.title = "Dashboard — CorteX"; }, []);
   const today = new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
   return (
     <div className="space-y-6 max-w-[1400px] mx-auto">

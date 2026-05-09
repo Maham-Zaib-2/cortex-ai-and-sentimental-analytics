@@ -1,15 +1,10 @@
-import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, Loader2, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { auth, DEMO_EMAIL, DEMO_PASSWORD } from "@/lib/auth";
 
-export const Route = createFileRoute("/login")({
-  head: () => ({ meta: [{ title: "Sign in — CorteX" }, { name: "description", content: "Access your CorteX AI customer intelligence dashboard." }] }),
-  component: Login,
-});
-
-function Login() {
+export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +12,7 @@ function Login() {
   const [remember, setRemember] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => { if (auth.isAuthed()) navigate({ to: "/dashboard" }); }, [navigate]);
+  useEffect(() => { document.title = "Sign in — CorteX"; if (auth.isAuthed()) navigate("/dashboard"); }, [navigate]);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +22,7 @@ function Login() {
       setLoading(false);
       if (ok) {
         toast.success("Welcome back, Maham");
-        navigate({ to: "/dashboard" });
+        navigate("/dashboard");
       } else {
         toast.error("Invalid email or password");
       }
@@ -36,7 +31,6 @@ function Login() {
 
   return (
     <div className="login-bg min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
-      {/* decorative blurred circles */}
       <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full" style={{ background: "radial-gradient(circle, rgba(122,175,212,0.45), transparent 60%)", filter: "blur(40px)" }} />
       <div className="pointer-events-none absolute -bottom-32 -right-32 w-[28rem] h-[28rem] rounded-full" style={{ background: "radial-gradient(circle, rgba(167,139,212,0.45), transparent 60%)", filter: "blur(40px)" }} />
       <div className="pointer-events-none absolute top-1/3 right-10 w-72 h-72 rounded-full" style={{ background: "radial-gradient(circle, rgba(144,200,192,0.45), transparent 60%)", filter: "blur(40px)" }} />
@@ -45,7 +39,7 @@ function Login() {
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl gradient-brand text-white font-extrabold flex items-center justify-center text-lg shadow-md">CX</div>
           <div>
-            <div className="text-2xl font-extrabold tracking-tight">CorteX</div>
+            <h1 className="text-2xl font-extrabold tracking-tight">CorteX</h1>
             <div className="text-xs text-secondary font-medium">AI-Powered Customer Intelligence</div>
           </div>
         </div>

@@ -1,11 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ChartCard, ChartTooltip } from "@/components/cortex/ChartCard";
 import { LineChart, Line, RadarChart, Radar, PolarAngleAxis, PolarGrid, PolarRadiusAxis, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid, Legend, ComposedChart, Bar, Area } from "recharts";
-
-export const Route = createFileRoute("/_authenticated/sentiment")({
-  head: () => ({ meta: [{ title: "Sentiment Analysis — CorteX" }] }),
-  component: Page,
-});
 
 const monthly = Array.from({length: 12}).map((_,i)=>({
   m: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][i],
@@ -35,7 +30,8 @@ const keywords = [
   { w: "love it", s: 96, color: "#7EC48A" },
 ];
 
-function Page() {
+export default function Sentiment() {
+  useEffect(() => { document.title = "Sentiment Analysis — CorteX"; }, []);
   return (
     <div className="space-y-6 max-w-[1400px] mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
