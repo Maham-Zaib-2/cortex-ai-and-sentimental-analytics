@@ -1,4 +1,4 @@
-import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LayoutDashboard, BarChart2, TrendingDown, Bell, FileText, Settings, LogOut, Menu } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { useState } from "react";
@@ -13,12 +13,12 @@ const items = [
 ] as const;
 
 export function AppSidebar() {
-  const path = useRouterState({ select: r => r.location.pathname });
+  const path = useLocation().pathname;
   const navigate = useNavigate();
   const session = auth.get();
   const [open, setOpen] = useState(false);
 
-  const logout = () => { auth.logout(); navigate({ to: "/login" }); };
+  const logout = () => { auth.logout(); navigate("/login"); };
 
   return (
     <>
